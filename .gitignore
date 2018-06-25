@@ -2,5 +2,5 @@
 !.gitignore
 !.git/
 !.git/*
-./data/df_org.pkl
-./data/df_samp.pkl
+./pickles/df_org.pkl
+./pickles/df_samp.pkl
