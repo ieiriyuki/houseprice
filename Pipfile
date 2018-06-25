@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[requires]
+python_version = "3.6"
+
+[packages]
+numpy = "==1.14"
+matplotlib = "==2.2"
+pandas = "==0.22"
+seaborn = "==0.8"
+scipy = "==1.1"
+scikit-learn = "==0.19"
