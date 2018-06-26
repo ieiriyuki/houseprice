@@ -5,8 +5,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics as mtr
 
-with open('./pickles/nd_dump.pkl', 'rb') as ipkl:
-    nd_dump = pickle.load(ipkl)
+with open('./pickles/stor_dict.pkl', 'rb') as ipkl:
+    stor_dict = pickle.load(ipkl)
+
+nd_dump = stor_dict['nd']
 
 print("shape of nd_dump: {0}".format(nd_dump.shape))
 
@@ -31,7 +33,9 @@ rmse_test = np.sqrt(mtr.mean_squared_error(y_test,
                 lm.predict(x_test)))
 print("rmse_test: {0}".format(np.log10(rmse_test)))
 
-print(y_test[:10])
-print(lm.predict(x_test)[:10])
+mdl_smp_dict = {'model': lm, 'scale': stor_dict['scale']}
+
+with open('./pickles/mdl_smp_dict.pkl','wb') as opkl:
+    pickle.dump(mdl_smp_dict, opkl)
 
 # end of file

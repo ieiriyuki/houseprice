@@ -16,7 +16,6 @@ print("columns of df_org are : {0}".format(list(df_org.columns)))
 
 df_samp = df_org[['SalePrice', 'YrSold', 'MoSold', 'LotArea','BedroomAbvGr']]
 
-print(df_samp.dtypes)
 '''
 for col in list(df_samp.columns):
     if any(list(df_samp[col].isna())):
@@ -38,13 +37,17 @@ scaler.fit(x_data)
 
 x_scal = scaler.transform(x_data)
 
+#print(x_scal.shape)
+
 df_stat = pd.DataFrame({'mean': x_scal.mean(axis=0),
                         'vars': x_scal.var(axis=0)})
 print("mean and vars are \n{0}".format(df_stat.T))
 
 nd_dump = np.concatenate((y_data.T, x_scal), axis=1)
 
-with open('./pickles/nd_dump.pkl', 'wb') as opkl:
-    pickle.dump(nd_dump, opkl)
+stor_dict = {'nd': nd_dump, 'scale': scaler}
+
+with open('./pickles/stor_dict.pkl', 'wb') as opkl:
+    pickle.dump(stor_dict, opkl)
 
 #end of file
