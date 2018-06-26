@@ -8,7 +8,7 @@ from sklearn import metrics as mtr
 with open('./pickles/nd_dump.pkl', 'rb') as ipkl:
     nd_dump = pickle.load(ipkl)
 
-print("shape of df_samp: {0}".format(nd_dump.shape))
+print("shape of nd_dump: {0}".format(nd_dump.shape))
 
 y_data, x_data = np.split(nd_dump, [1], axis=1)
 
@@ -24,11 +24,14 @@ lm.fit(x_train, y_train)
 print("coef: ", lm.coef_)
 print("intc: ", lm.intercept_)
 
-mse_train = np.sqrt(mtr.mean_squared_error(y_train,
+rmse_train = np.sqrt(mtr.mean_squared_error(y_train,
                 lm.predict(x_train)))
-print("mse_train: {0}".format(np.log10(mse_train)))
-mse_test = np.sqrt(mtr.mean_squared_error(y_test,
+print("rmse_train: {0}".format(np.log10(rmse_train)))
+rmse_test = np.sqrt(mtr.mean_squared_error(y_test,
                 lm.predict(x_test)))
-print("mse_test: {0}".format(np.log10(mse_test)))
+print("rmse_test: {0}".format(np.log10(rmse_test)))
+
+print(y_test[:10])
+print(lm.predict(x_test)[:10])
 
 # end of file

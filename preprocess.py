@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 import sklearn.preprocessing as prp
 
-
 df_org = pd.read_csv("./data/train.csv", header=0, sep=",", encoding='utf-8')
 
 #with open('./pickles/df_org.pkl', 'wb') as opkl:
@@ -47,6 +46,5 @@ nd_dump = np.concatenate((y_data.T, x_scal), axis=1)
 
 with open('./pickles/nd_dump.pkl', 'wb') as opkl:
     pickle.dump(nd_dump, opkl)
-
 
 #end of file
