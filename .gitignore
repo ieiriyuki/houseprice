@@ -5,3 +5,4 @@
 ./pickles/df_org.pkl
 ./pickles/df_samp.pkl
 ./pickles/nd_dump.pkl
+./pickles/model_samp.pkl
