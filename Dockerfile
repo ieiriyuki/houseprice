@@ -11,3 +11,5 @@ RUN pip install --upgrade pip \
         scipy==1.1 \
         scikit-learn==0.19 \
         pandas-profiling==1.4
+
+CMD ["python3"]

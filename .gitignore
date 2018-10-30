@@ -1,8 +1,3 @@
 !.gitignore
-/pickles/df_org.pkl
-/pickles/df_samp.pkl
-/pickles/nd_dump.pkl
-/pickles/model_samp.pkl
-/pickles/stor_dict.pkl
-/pickles/mdl_smp_dict.pkl
+/data/pickles/*.pkl
 !.dockerignore
