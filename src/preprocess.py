@@ -19,15 +19,16 @@ TEST_SIZE = 0.25
 
 def main():
     parser=parse()
+    args = parser.parse_args()
 
-    raw_data = read_data(DEFAULT_INPUT)
+    raw_data = read_data(args.input)
     features = ['SalePrice', 'YrSold', 'MoSold', 'LotArea','BedroomAbvGr']
     extracted_data = raw_data[features].values
 
     x_train, x_test, y_train, y_test = train_test_split(extracted_data[:,1:4],
                                                         extracted_data[:,0],
-                                                        test_size=TEST_SIZE,
-                                                        random_state=RANDOM_SEED)
+                                                        test_size=args.testsize,
+                                                        random_state=args.seed)
 
     x_scaler, x_train = scaling(x_train)
     y_scaler, y_train = scaling(y_train.reshape(-1, 1))
@@ -39,10 +40,10 @@ def main():
                 'x_test': x_test,
                 'y_train': y_train,
                 'y_test': y_test,
-                'x_scale': x_scaler,
-                'y_scale': y_scaler }
+                'x_scaler': x_scaler,
+                'y_scaler': y_scaler }
 
-    with open(DEFAULT_OUTPUT, 'wb') as opkl:
+    with open(args.output, 'wb') as opkl:
         pickle.dump(dataset, opkl)
 
 
@@ -73,7 +74,7 @@ def parse():
                         help='specify the initial random seed',
                         metavar='seed')
     parser.add_argument('-t',
-                        '--test-size',
+                        '--testsize',
                         default=TEST_SIZE,
                         help='specify the size of test data set',
                         metavar='t')
