@@ -1,7 +1,6 @@
-#!/usr/local/bin/pyton3
+#!/usr/local/bin/pyton
 
-import argparse
-import pickle
+import argparse, pickle
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
@@ -25,10 +24,11 @@ def main():
     features = ['SalePrice', 'YrSold', 'MoSold', 'LotArea','BedroomAbvGr']
     extracted_data = raw_data[features].values
 
-    x_train, x_test, y_train, y_test = train_test_split(extracted_data[:,1:4],
+    x_train, x_test, y_train, y_test = train_test_split(extracted_data[:,1:],
                                                         extracted_data[:,0],
                                                         test_size=args.testsize,
                                                         random_state=args.seed)
+    #print(x_train.shape)
 
     x_scaler, x_train = scaling(x_train)
     y_scaler, y_train = scaling(y_train.reshape(-1, 1))
@@ -36,7 +36,8 @@ def main():
     _, x_test = scaling(x_test, x_scaler)
     _, y_test = scaling(y_test.reshape(-1, 1), y_scaler)
 
-    dataset = { 'x_train': x_train,
+    dataset = { 'features': features,
+                'x_train': x_train,
                 'x_test': x_test,
                 'y_train': y_train,
                 'y_test': y_test,
@@ -53,6 +54,15 @@ def read_data(input):
                        sep=",",
                        encoding='utf-8')
     return data
+
+
+def scaling(data, scaler=None):
+    if scaler==None:
+        scaler = StandardScaler()
+    else :
+        scaler=scaler
+    scaled_data = scaler.fit_transform(data)
+    return scaler, scaled_data
 
 
 def parse():
@@ -79,15 +89,6 @@ def parse():
                         help='specify the size of test data set',
                         metavar='t')
     return parser
-
-
-def scaling(data, scaler=None):
-    if scaler==None:
-        scaler = StandardScaler()
-    else :
-        scaler=scaler
-    scaled_data = scaler.fit_transform(data)
-    return scaler, scaled_data
 
 
 if __name__=="__main__":

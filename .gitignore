@@ -1,3 +1,5 @@
 !.gitignore
-/data/pickles/*.pkl
 !.dockerignore
+/data/pickles/*.pkl
+/src/__pycache__
+/data/prepared

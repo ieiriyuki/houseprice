@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/local/bin/python
 
 from sklearn.linear_model import LinearRegression
 from sklearn.ensenmbe import RandomForestRegressor

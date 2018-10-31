@@ -1,7 +1,6 @@
-#!/usr/local/bin/python3
+#!/usr/local/bin/python
 
-import argparse
-import pickle
+import argparse, pickle
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
@@ -26,6 +25,7 @@ def main():
 
     x_train, x_test, y_train, y_test = \
         dataset['x_train'], dataset['x_test'], dataset['y_train'], dataset['y_test']
+    #print(x_test.shape)
 
     model = LinearRegression()
     model.fit(x_train, y_train)
@@ -50,8 +50,20 @@ def main():
     print("rmsle_train: {0:1.8f}, rmsle_test: {1:1.8f}".format(rmsle_train,
                                                                rmsle_test))
 
+    model_set = { 'features': dataset['features'],
+                  'model': model,
+                  'x_scaler': dataset['x_scaler'],
+                  'y_scaler': dataset['y_scaler'] }
+
     with open(args.output, 'wb') as opkl:
-        pickle.dump(model, opkl)
+        pickle.dump(model_set, opkl)
+
+
+def reverse_scale(data, scaler):
+    mean = scaler.mean_
+    sd = np.sqrt(scaler.var_)
+    data = (data * sd) + mean
+    return data
 
 
 def parse():
@@ -71,13 +83,6 @@ def parse():
                         default='lm',
                         help='specify a model trained')
     return parser
-
-
-def reverse_scale(data, scaler):
-    mean = scaler.mean_
-    sd = np.sqrt(scaler.var_)
-    data = (data * sd) + mean
-    return data
 
 
 if __name__=='__main__':
